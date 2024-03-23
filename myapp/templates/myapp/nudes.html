@@ -1,0 +1,48 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Send Nudes
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="card-title">Send Nudes 💦</h2>
+                    <p class="card-text">Share a sweet image with your loved one.</p>
+                    <form method="post" action="{% url 'send_nude' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="file" class="form-control" name="nude_image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn romantic-btn">Send Nude</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container text-center mt-5">
+    <p>Please <a href="/login">login</a> to send nudes.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .romantic-btn {
+        background-color: #ff99cc; /* Soft pink */
+        color: white;
+        border: none;
+    }
+
+    .romantic-btn:hover, .romantic-btn:focus {
+        background-color: #ff66a3; /* A slightly deeper pink on hover/focus */
+        color: white;
+    }
+</style>
+{% endblock %}

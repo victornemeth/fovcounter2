@@ -1,0 +1,67 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Time Till Date
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #ffffff; color: #333; padding-top: 20px;">
+
+    <div style="max-width: 800px; margin: auto; padding: 20px;">
+        <h1 style="font-size: 2.5rem; text-align: center;">Time till next date.</h1>
+
+        <div style="font-size: 1.6rem; margin-top: 30px; text-align: center;">
+            <p>Time:</p>
+            <h2 id="timeDifference" style="font-weight: bold;">Loading...</h2>
+        </div>
+
+<!-- Buttons -->
+<div style="text-align: center; margin-top: 40px;">
+    <!-- Send Kisses Button -->
+    <button onclick="redirectToKissesPage()" class="btn btn-primary" style="font-size: 1.2rem; margin-right: 10px;">Send Kisses</button>
+    
+    <!-- Send Nudes Button -->
+    <button onclick="redirectToNudesPage()" class="btn btn-danger" style="font-size: 1.2rem;">Send Nudes</button>
+</div>
+
+<script>
+    // JavaScript function to redirect to the kisses page
+    function redirectToKissesPage() {
+        window.location.href = '/kisses'; // Replace 'URL_FOR_KISSES_PAGE' with the actual URL
+    }
+
+    // JavaScript function to redirect to the nudes page
+    function redirectToNudesPage() {
+        window.location.href = '/nudes'; // Replace 'URL_FOR_NUDES_PAGE' with the actual URL
+    }
+</script>
+    </div>
+
+    <script>
+        const targetDateTime = new Date('{{ datetime }}');
+
+        function updateTimeDifference() {
+            const now = new Date();
+            let timeDifference = Math.abs(targetDateTime - now);
+
+            // Calculate the components of the time difference
+            const seconds = parseInt((timeDifference / 1000) % 60),
+                minutes = parseInt((timeDifference / (1000 * 60)) % 60),
+                hours = parseInt((timeDifference / (1000 * 60 * 60)) % 24),
+                days = parseInt(timeDifference / (1000 * 60 * 60 * 24));
+
+            // Format the time difference string
+            let formattedTimeDifference = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+
+            document.getElementById('timeDifference').innerText = formattedTimeDifference;
+        }
+
+        // Update the time difference at an interval
+        setInterval(updateTimeDifference, 100); // Update every 100 milliseconds
+    </script>
+</div>
+{% else %}
+<p>Login <a href="/login">Here</a></p>
+{% endif %}
+{% endblock %}

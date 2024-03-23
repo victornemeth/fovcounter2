@@ -1,0 +1,57 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Kisses
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="card-title">Send Kisses 💋</h2>
+                    <p class="card-text">Share a sweet message with your loved GOD.</p>
+                    <form method="post" action="{% url 'send_kiss' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <textarea class="form-control" name="message" rows="4" placeholder="Your romantic message here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn romantic-btn">Send Kiss</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container text-center mt-5">
+    <p>Please <a href="/login">login</a> to send kisses.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .btn-pink {
+        background-color: #f64;
+        color: #fff;
+    }
+    .btn-pink:hover {
+        background-color: #f42;
+        color: #fff;
+    }
+    .romantic-btn {
+    background-color: #ff99cc; /* Soft pink */
+    color: white;
+    border: none;
+    }
+
+    .romantic-btn:hover, .romantic-btn:focus {
+        background-color: #ff66a3; /* A slightly deeper pink on hover/focus */
+        color: white;
+    }
+
+</style>
+{% endblock %}

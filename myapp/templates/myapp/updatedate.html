@@ -1,0 +1,32 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Update Date and Time
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <!-- Update Next Date Form -->
+    <div class="update-date-section">
+        <h2>Update Next Date</h2>
+        <form method="post" action="{% url 'update_next_date' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="next_date_submit" class="btn btn-primary">Update Next Date</button>
+        </form>
+    </div>
+
+    <!-- Update Last Date Form -->
+    <div class="update-date-section">
+        <h2>Update Last Date</h2>
+        <form method="post" action="{% url 'update_last_date' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="last_date_submit" class="btn btn-primary">Update Last Date</button>
+        </form>
+    </div>
+    <p></p>
+{% else %}
+    <p>Login <a href="/login">Here</a></p>
+{% endif %}
+{% endblock %}

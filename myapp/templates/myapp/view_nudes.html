@@ -1,0 +1,39 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Admin - View Kiss Images
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if images %}
+        <div class="gallery">
+            {% for image in images %}
+                <div class="image mb-4">
+                    <img src="{{ image.image.url }}" alt="Kiss Image" class="img-fluid">
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">No images to display.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .gallery {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .image img {
+        max-width: 300px; /* Adjust based on your preference */
+        border-radius: 8px; /* Optional: adds rounded corners to the images */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow to the images */
+    }
+    .mb-4 {
+        margin-bottom: 1.5rem; /* Adds spacing between the images */
+    }
+</style>
+{% endblock %}

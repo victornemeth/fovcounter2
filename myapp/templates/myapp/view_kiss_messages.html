@@ -1,0 +1,45 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+Kiss Messages
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Kiss Messages</h2>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">
+                    <p>{{ message.message }}</p>
+                    <small>From: {{ message.user.username }} on {{ message.created_at }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No kiss messages to display.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .messages {
+        margin-top: 20px;
+    }
+    .message {
+        background-color: #ffefff;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+    .message p {
+        margin: 0;
+    }
+    .message small {
+        display: block;
+        margin-top: 10px;
+        color: #666;
+    }
+</style>
+{% endblock %}
